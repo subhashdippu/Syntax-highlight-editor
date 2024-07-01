@@ -14,11 +14,45 @@ const CodeEditor = () => {
         return Prism.highlight(code, Prism.languages[language], language);
     };
 
+    const getLanguage = () => {
+        switch (language) {
+            case 'html':
+                return 'html';
+            case 'javascript':
+                return 'javascript';
+            default:
+                return 'html';
+        }
+    };
+
     return (
         <div className='container'>
 
             <div style={{ marginBottom: '1rem' }}>
-                HTML
+                <button
+                    onClick={() => setLanguage('html')}
+                    style={{
+                        marginRight: '0.5rem',
+                        padding: '0.5rem 1rem',
+                        backgroundColor: language === 'html' ? 'gray' : 'transparent',
+                        border: 'none',
+                        cursor: 'pointer',
+                    }}
+                >
+                    HTML
+                </button>
+                <button
+                    onClick={() => setLanguage('javascript')}
+                    style={{
+                        marginRight: '0.5rem',
+                        padding: '0.5rem 1rem',
+                        backgroundColor: language === 'javascript' ? 'gray' : 'transparent',
+                        border: 'none',
+                        cursor: 'pointer',
+                    }}
+                >
+                    JavaScript
+                </button>
             </div>
             <textarea
                 value={code}
@@ -48,7 +82,9 @@ const CodeEditor = () => {
                 }}
             >
                 <code
+                    className={getLanguage()}
                     dangerouslySetInnerHTML={{ __html: highlightCode(code) }}
+                    style={{ all: 'unset', display: 'block' }}
                 />
             </pre>
         </div>
